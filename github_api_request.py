@@ -3,23 +3,18 @@
 
 # Copyright: (c) 2021, Thomas Langmar <thlan@mailbox.org>
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
+
 from __future__ import (absolute_import, division, print_function)
-from sys import stdout
 __metaclass__ = type
+
 
 DOCUMENTATION = r'''
 ---
-module: git_api_request
-requires: python3 module requests
-
-short_description: Get the latest release tag.
-
-# If this is part of a collection, you need to use semantic versioning,
-# i.e. the version is of the form "2.5.0" and not "2.4".
+module: github_api_request
+author: "Thomas Langmar (@thomtux)"
 version_added: "1.0.0"
-
+short_description: Get the latest release tag.
 description: Get the latest release tag of a repository from github.
-
 options:
     owner:
         description: The owner of the repository.
@@ -29,13 +24,11 @@ options:
         description: The repository name you want to ask.
         required: true
         type: str
-
-author:
-    - Thomas Langmar (@thomtux)
+requirements:
+    - requests
 '''
 
 EXAMPLES = r'''
-# Pass in a message
 - name: Check latest version at github
     git_api_request:
       owner: "the name of the owner"
@@ -50,7 +43,6 @@ EXAMPLES = r'''
 '''
 
 RETURN = r'''
-# These are examples of possible return values, and in general should use other names for return values.
 latest_release:
     description: The lateste release number.
     type: str
@@ -63,8 +55,8 @@ msg:
     sample: 'Found'
 '''
 
-from ansible.module_utils.basic import AnsibleModule
 import requests
+from ansible.module_utils.basic import AnsibleModule
 
 def run_module():
     module_args = dict(
